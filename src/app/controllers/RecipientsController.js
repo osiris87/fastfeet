@@ -1,6 +1,11 @@
+import User from "./../models/User";
+import Recipient from "./../models/Recipients";
+
 class RecipientsController {
   async store(req, res) {
-    return res.json(req.body);
+    const checkUser = await User.findOne({ where: { id: req.userId } });
+    console.log(checkUser);
+    return res.json(req.userId);
   }
 }
 
