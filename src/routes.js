@@ -9,6 +9,9 @@ const routes = new Router();
 
 routes.post("/users", UserController.store);
 routes.post("/auth", SessionController.store);
-routes.post("/recipients", authMiddleware, RecipientsController.store);
+
+routes.use(authMiddleware);
+routes.post("/recipients", RecipientsController.store);
+routes.put("/recipients", RecipientsController.update);
 
 export default routes;
