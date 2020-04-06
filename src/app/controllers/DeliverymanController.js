@@ -75,13 +75,13 @@ class DeliverymanController {
       if (emailExists) {
         return res.status(400).json({ error: "Email já Cadastrado!" });
       }
-      deliveryman.email = email;
-      await deliveryman.save();
     } else {
       return res.status(400).json({ error: "Não houve alteração" });
     }
 
-    return res.json(deliveryman);
+    const { id, name } = await deliveryman.update(req.body);
+
+    return res.json({ id, name, email });
   }
 }
 
