@@ -12,7 +12,7 @@ class RecipientsController {
       complement: Yup.string().required(),
       state: Yup.string().required(),
       city: Yup.string().required(),
-      zipcode: Yup.string().required()
+      zipcode: Yup.string().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -29,7 +29,7 @@ class RecipientsController {
       complement,
       state,
       city,
-      zipcode
+      zipcode,
     } = await Recipient.create(req.body);
 
     return res.json({
@@ -40,7 +40,7 @@ class RecipientsController {
       complement,
       state,
       city,
-      zipcode
+      zipcode,
     });
   }
 
@@ -52,14 +52,14 @@ class RecipientsController {
       complement: Yup.string(),
       state: Yup.string(),
       city: Yup.string(),
-      zipcode: Yup.string()
+      zipcode: Yup.string(),
     });
 
     if (!(await schema.isValid(req.body))) {
       return res.status(401).json({ error: "Nenhum campo pode está vazio" });
     }
 
-    const recipient = await Recipient.findByPk(req.body.id);
+    const recipient = await Recipient.findByPk(req.params.recipient_id);
 
     if (!recipient) {
       return res.status(401).json({ error: "Destinatario não foi encontrado" });
@@ -73,7 +73,7 @@ class RecipientsController {
       complement,
       state,
       city,
-      zipcode
+      zipcode,
     } = await recipient.update(req.body);
 
     return res.json({
@@ -84,7 +84,7 @@ class RecipientsController {
       complement,
       state,
       city,
-      zipcode
+      zipcode,
     });
   }
 }
