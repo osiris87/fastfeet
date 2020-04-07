@@ -83,6 +83,16 @@ class DeliverymanController {
 
     return res.json({ id, name, email });
   }
+
+  async delete(req, res) {
+    const deliveryman = await Deliveryman.findByPk(req.params.deliveryman_id);
+    if (!deliveryman) {
+      return res.status(400).json({ error: "Entregador não encontrado" });
+    }
+    await deliveryman.destroy();
+
+    return res.json(deliveryman);
+  }
 }
 
 export default new DeliverymanController();
