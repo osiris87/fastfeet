@@ -37,10 +37,10 @@ module.exports = {
       canceled_at: {
         type: Sequelize.DATE,
       },
-      start_at: {
+      start_date: {
         type: Sequelize.DATE,
       },
-      end_at: {
+      end_date: {
         type: Sequelize.DATE,
       },
       created_at: {
