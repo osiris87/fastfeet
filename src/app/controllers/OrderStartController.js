@@ -22,13 +22,12 @@ class OrderStartController {
     const countOrdersDeliveryman = await Order.count({
       where: {
         deliveryman_id,
+        canceled_at: null,
         start_date: {
           [Op.between]: [startOfDay(currentTime), endOfDay(currentTime)],
         },
       },
     });
-
-    console.log(countOrdersDeliveryman);
 
     if (countOrdersDeliveryman > 4) {
       return res.status(400).json({

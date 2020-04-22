@@ -24,7 +24,7 @@ class OrderController {
     return res.json(order);
   }
 
-  async destroy(req, res) {
+  async delete(req, res) {
     const { id } = req.params;
 
     const order = await Order.findByPk(id);
