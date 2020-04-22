@@ -3,26 +3,6 @@ import File from "../models/File";
 
 class OrderEndController {
   async update(req, res) {
-    const { id } = req.params;
-
-    const order = await Order.findByPk(id);
-    if (!order) {
-      return res.status(400).json({ error: "Pedido não encontrado" });
-    }
-
-    const currentTime = new Date();
-
-    const { canceled_at, start_date } = order;
-    if (canceled_at) {
-      return res.status(400).json({ error: "Encomenta ja foi cancelada" });
-    }
-
-    if (!start_date) {
-      return res
-        .status(400)
-        .json({ error: "Encomenta ainda não saiu para entrega" });
-    }
-
     const { originalname: name, filename: path } = req.file;
     const file = await File.create({ name, path });
 
@@ -32,10 +12,15 @@ class OrderEndController {
         .json({ error: "Não foi possivel salvar a sua assinatura" });
     }
 
-    order.signature_id = file.id;
-    order.end_date = currentTime;
+    const currentTime = new Date();
 
-    await order.save();
+    const order = await Order.update(
+      {
+        signature_id: file.id,
+        end_date: currentTime,
+      },
+      { where: { id: req.orderId } }
+    );
 
     return res.json(order);
   }
