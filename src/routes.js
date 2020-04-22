@@ -43,6 +43,6 @@ routes.delete("/deliveryman/:id", DeliverymanController.delete);
 routes.post("/orders", OrderController.store);
 routes.put("/orders/:id/cancel", OrderController.delete);
 routes.put("/orders/:id/start", OrderStartController.update);
-routes.put("/orders/:id/end", OrderEndController.update);
+routes.put("/orders/:id/end", upload.single("file"), OrderEndController.update);
 
 export default routes;

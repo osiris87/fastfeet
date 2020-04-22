@@ -1,4 +1,5 @@
 import Order from "../models/Order";
+import File from "../models/File";
 
 class OrderEndController {
   async update(req, res) {
@@ -22,6 +23,16 @@ class OrderEndController {
         .json({ error: "Encomenta ainda não saiu para entrega" });
     }
 
+    const { originalname: name, filename: path } = req.file;
+    const file = await File.create({ name, path });
+
+    if (!file) {
+      return res
+        .status(400)
+        .json({ error: "Não foi possivel salvar a sua assinatura" });
+    }
+
+    order.signature_id = file.id;
     order.end_date = currentTime;
 
     await order.save();
