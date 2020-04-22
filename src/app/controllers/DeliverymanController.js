@@ -70,7 +70,7 @@ class DeliverymanController {
     }
 
     const deliveryman = await Deliveryman.findOne({
-      where: { id: req.params.deliveryman_id },
+      where: { id: req.params.id },
     });
 
     if (!deliveryman) {
@@ -99,7 +99,7 @@ class DeliverymanController {
   }
 
   async delete(req, res) {
-    const deliveryman = await Deliveryman.findByPk(req.params.deliveryman_id);
+    const deliveryman = await Deliveryman.findByPk(req.params.id);
     if (!deliveryman) {
       return res.status(400).json({ error: "Entregador não encontrado" });
     }

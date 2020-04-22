@@ -3,7 +3,10 @@ import UserController from "./app/controllers/UserController";
 import SessionController from "./app/controllers/SessionController";
 import RecipientsController from "./app/controllers/RecipientsController";
 import DeliverymanController from "./app/controllers/DeliverymanController";
+import DeliverymanOrderController from "./app/controllers/DeliverymanOrderController";
 import OrderController from "./app/controllers/OrderController";
+import OrderStartController from "./app/controllers/OrderStartController";
+import OrderEndController from "./app/controllers/OrderEndController";
 import FileController from "./app/controllers/FileController";
 
 import authMiddleware from "./app/middlewares/auth";
@@ -28,10 +31,13 @@ routes.put("/recipients/:recipient_id", RecipientsController.update);
 
 routes.get("/deliveryman", DeliverymanController.index);
 routes.post("/deliveryman", DeliverymanController.store);
-routes.put("/deliveryman/:deliveryman_id", DeliverymanController.update);
-routes.delete("/deliveryman/:deliveryman_id", DeliverymanController.delete);
+routes.get("/deliveryman/:id/deliveries", DeliverymanOrderController.index);
+routes.put("/deliveryman/:id", DeliverymanController.update);
+routes.delete("/deliveryman/:id", DeliverymanController.delete);
 
 routes.post("/orders", OrderController.store);
-routes.put("/orders/:id/:status", OrderController.update);
+routes.put("/orders/:id/cancel", OrderController.destroy);
+routes.put("/orders/:id/start", OrderStartController.update);
+routes.put("/orders/:id/end", OrderEndController.update);
 
 export default routes;
